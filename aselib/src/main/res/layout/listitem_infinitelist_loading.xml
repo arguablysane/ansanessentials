@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+
+    <data class="LoadingListItemWidgetBinding">
+        <variable
+            name="message"
+            type="CharSequence"/>
+    </data>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:gravity="center"
+        android:textStyle="italic"
+        android:textColor="#ddd"
+        android:textSize="14sp"
+        tools:text="Loading entries"
+        android:text="@{message}"/>
+    
+</layout>
