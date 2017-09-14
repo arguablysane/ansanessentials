@@ -54,7 +54,7 @@ public class SharedPrefDataSource implements DataSource {
 		return Observable.fromCallable(new Callable<Long>() {
 			@Override
 			public Long call() throws Exception {
-				if()
+				return null;
 			}
 		})
 		.subscribeOn(Schedulers.io())
