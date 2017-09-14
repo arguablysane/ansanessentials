@@ -9,6 +9,10 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        vectorDrawables {
+            useSupportLibrary = true
+        }
     }
     buildTypes {
         release {
@@ -30,9 +34,9 @@ def libversion_eventbus = '3.0.0'
 def libversion_rxjava = '2.1.1'
 def libversion_rxandroid = '2.0.1'
 def libversion_picasso = '2.5.2'
-def libversion_dagger = '2.11'
 def libversion_javax_annotations = '1.0'
 def libversion_rxpermissions = '0.9.4@aar'
+def libversion_dagger = 2.11
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
@@ -40,25 +44,26 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
 
-    implementation 'com.android.support:appcompat-v7:' + libversion_android_support
-    implementation 'com.android.support:design:' + libversion_android_support
-    implementation 'com.android.support.constraint:constraint-layout:' + libversion_contstraint_layout
+    api 'com.android.support:appcompat-v7:' + libversion_android_support
+    api 'com.android.support:design:' + libversion_android_support
+    api 'com.android.support.constraint:constraint-layout:' + libversion_contstraint_layout
 
-    implementation 'org.greenrobot:eventbus:' + libversion_eventbus
+    api 'org.greenrobot:eventbus:' + libversion_eventbus
 
-    implementation 'com.squareup.okhttp3:okhttp:' + libversion_okhttp
-    implementation 'com.squareup.okhttp3:logging-interceptor:' + libversion_okhttp
-    implementation 'com.squareup.retrofit2:retrofit:' + libversion_retrofit
-    implementation 'com.squareup.retrofit2:converter-gson:' + libversion_retrofit
-    implementation 'com.squareup.retrofit2:adapter-rxjava2:' + libversion_retrofit
+    api 'com.squareup.okhttp3:okhttp:' + libversion_okhttp
+    api 'com.squareup.okhttp3:logging-interceptor:' + libversion_okhttp
+    api 'com.squareup.retrofit2:retrofit:' + libversion_retrofit
+    api 'com.squareup.retrofit2:converter-gson:' + libversion_retrofit
+    api 'com.squareup.retrofit2:adapter-rxjava2:' + libversion_retrofit
 
-    implementation 'io.reactivex.rxjava2:rxandroid:' + libversion_rxandroid
-    implementation 'io.reactivex.rxjava2:rxjava:' + libversion_rxjava
-    implementation 'com.tbruyelle.rxpermissions2:rxpermissions:' + libversion_rxpermissions
+    api 'io.reactivex.rxjava2:rxandroid:' + libversion_rxandroid
+    api 'io.reactivex.rxjava2:rxjava:' + libversion_rxjava
+    api 'com.tbruyelle.rxpermissions2:rxpermissions:' + libversion_rxpermissions
 
-    implementation 'com.squareup.picasso:picasso:' + libversion_picasso
+    api "com.google.dagger:dagger:$libversion_dagger"
+    api "com.google.dagger:dagger-android-support:$libversion_dagger"
+    annotationProcessor "com.google.dagger:dagger-android-processor:$libversion_dagger"
+    annotationProcessor "com.google.dagger:dagger-compiler:$libversion_dagger"
 
-    implementation 'com.google.dagger:dagger:' + libversion_dagger
-    annotationProcessor 'com.google.dagger:dagger-implementationr:' + libversion_dagger
-    provided 'javax.annotation:jsr250-api:' + libversion_javax_annotations
+    api 'com.squareup.picasso:picasso:' + libversion_picasso
 }

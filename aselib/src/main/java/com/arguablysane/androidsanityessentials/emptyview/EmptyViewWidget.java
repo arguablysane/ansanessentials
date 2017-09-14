@@ -1,6 +1,8 @@
 package com.arguablysane.androidsanityessentials.emptyview;
 
 import android.content.Context;
+import android.content.res.TypedArray;
+import android.graphics.Color;
 import android.graphics.drawable.AnimatedVectorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
@@ -43,6 +45,14 @@ public class EmptyViewWidget extends FrameLayout {
         this.tvMessage = (TextView) findViewById(R.id.tvMessage);
         this.tvTitle = (TextView) findViewById(R.id.tvTitle);
         this.imgIcon = (ImageView) findViewById(R.id.imgIcon);
+
+        TypedArray array = context.getResources().obtainAttributes(attrs, R.styleable.EmptyViewWidget);
+        if(array.hasValue(R.styleable.EmptyViewWidget_iconTint)) {
+			imgIcon.setColorFilter(array.getColor(R.styleable.EmptyViewWidget_iconTint, Color.TRANSPARENT));
+		}
+        tvTitle.setTextColor(array.getColor(R.styleable.EmptyViewWidget_titleColor, Color.BLACK));
+        tvMessage.setTextColor(array.getColor(R.styleable.EmptyViewWidget_messageColor, Color.DKGRAY));
+        array.recycle();
 
         imgIcon.setOnClickListener(new OnClickListener() {
             @Override

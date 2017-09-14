@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="EmptyViewWidget">
+        <attr name="iconTint" format="color"/>
+        <attr name="titleColor" format="color"/>
+        <attr name="messageColor" format="color"/>
+    </declare-styleable>
+</resources>

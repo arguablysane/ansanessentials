@@ -7,6 +7,7 @@ import android.view.View;
 import com.arguablysane.androidsanityessentials.BR;
 import com.arguablysane.androidsanityessentials.emptyview.EmptyViewState;
 import com.arguablysane.androidsanityessentials.emptyview.abs.EmptyViewManager;
+import com.arguablysane.androidsanityessentials.emptyview.abs.EmptyViewManagerCallback;
 
 /**
  * Created by administrator on 7/7/17.
@@ -18,6 +19,7 @@ public abstract class BasePageViewModel extends BaseObservable implements BasePa
 	protected int dataState = EmptyViewManager.STATE_LOADING;
 	private Throwable dataException = null;
 	private boolean isLoading = false;
+	private EmptyViewManagerCallback emptyViewManagerCallback;
 
 	public BasePageViewModel(EmptyViewManager emptyViewManager) {
 		this.emptyViewManager = emptyViewManager;
@@ -25,6 +27,11 @@ public abstract class BasePageViewModel extends BaseObservable implements BasePa
 
 	public void setEmptyViewManager(EmptyViewManager emptyViewManager) {
 		this.emptyViewManager = emptyViewManager;
+	}
+
+	@Override
+	public void setEmptyViewManagerCallback(EmptyViewManagerCallback emptyViewManagerCallback) {
+		this.emptyViewManagerCallback = emptyViewManagerCallback;
 	}
 
 	@Bindable
@@ -98,7 +105,15 @@ public abstract class BasePageViewModel extends BaseObservable implements BasePa
 	 */
 	@Bindable
 	public EmptyViewState getEmptyViewState() {
-		EmptyViewState emptyViewState = emptyViewManager.getEmptyViewState(dataState, dataException);
+		EmptyViewState emptyViewState = null;
+		if(emptyViewManagerCallback != null) {
+			emptyViewState = emptyViewManagerCallback.getEmptyViewState(dataState);
+		}
+
+		if(emptyViewState == null) {
+			emptyViewState =emptyViewManager.getEmptyViewState(dataState, dataException);
+		}
+
 		if(emptyViewState != null) {
 			switch (dataState) {
 				case EmptyViewManager.STATE_LOADING:

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data class="FormActivityBinding">
+        <import type="android.view.View"/>
+        <variable
+            name="viewModel"
+            type="com.arguablysane.aseplayground.activities.form.FormActivityContract.ViewModel"/>
+
+        <variable
+            name="view"
+            type="com.arguablysane.aseplayground.activities.form.FormActivityContract.View"/>
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="24dp"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/edtName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:hint="Name"
+            android:visibility="@{viewModel.nameLayoutVisible ? View.VISIBLE : View.GONE}"
+            android:text="@={viewModel.name}"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:textSize="12sp"
+            android:textColor="#f44"
+            android:text="@{viewModel.nameError}"
+            android:visibility="@{viewModel.nameError != null ? View.VISIBLE : View.GONE}"/>
+
+        <EditText
+            android:id="@+id/edtAge"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:inputType="number"
+            android:gravity="center"
+            android:maxLength="3"
+            android:hint="Age"
+            android:visibility="@{viewModel.ageLayoutVisible ? View.VISIBLE : View.GONE}"
+            android:text="@={viewModel.age}"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:textSize="12sp"
+            android:textColor="#f44"
+            android:text="@{viewModel.ageError}"
+            android:visibility="@{viewModel.ageError != null ? View.VISIBLE : View.GONE}"/>
+
+        <EditText
+            android:id="@+id/edtLocation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:gravity="center"
+            android:hint="Location"
+            android:visibility="@{viewModel.locationLayoutVisible ? View.VISIBLE : View.GONE}"
+            android:text="@={viewModel.location}"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:textSize="12sp"
+            android:textColor="#f44"
+            android:text="@{viewModel.locationError}"
+            android:visibility="@{viewModel.locationError != null ? View.VISIBLE : View.GONE}"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Next"
+            android:onClick="@{ () -> view.onNextClicked()}"/>
+
+    </LinearLayout>
+
+</layout>

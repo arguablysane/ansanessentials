@@ -34,4 +34,9 @@ public class ReallySimpleEmptyViewManager implements EmptyViewManager {
 				return genericErrorState;
 		}
     }
+
+	@Override
+	public String getMessageFromError(Throwable throwable) {
+		return throwable.getMessage();
+	}
 }

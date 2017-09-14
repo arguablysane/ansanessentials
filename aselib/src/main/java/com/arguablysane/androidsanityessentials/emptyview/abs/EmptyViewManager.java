@@ -15,4 +15,6 @@ public interface EmptyViewManager {
 
 	EmptyViewState getEmptyViewState(int state, Throwable throwable);
 
+	String getMessageFromError(Throwable throwable);
+
 }

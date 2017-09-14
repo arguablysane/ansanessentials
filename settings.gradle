@@ -1,1 +1,1 @@
-include ':aselib'
+include ':aselib', ':playground'
