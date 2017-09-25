@@ -15,6 +15,6 @@ public class PlaygroundApplication extends Application {
 		super.onCreate();
 
 		// Just initialising things here
-		new DaggerProvider();
+		new DaggerProvider(this);
 	}
 }

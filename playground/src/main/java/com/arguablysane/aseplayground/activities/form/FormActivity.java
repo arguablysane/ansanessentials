@@ -7,10 +7,9 @@ import android.databinding.Observable;
 import android.os.Bundle;
 import android.widget.Toast;
 
-import com.arguablysane.aseplayground.BR;
 import com.arguablysane.aseplayground.activities.abs.BaseActivity;
 import com.arguablysane.aseplayground.data.models.PersonModel;
-import com.arguablysane.aseplayground.data.sources.abs.DataSource;
+import com.arguablysane.aseplayground.data.sources.abs.AbsDataSource;
 import com.arguablysane.aseplayground.databinding.FormActivityBinding;
 import com.arguablysane.aseplayground.injection.DaggerProvider;
 import com.arguablysane.androidsanityessentials.emptyview.abs.EmptyViewManager;
@@ -31,7 +30,7 @@ public class FormActivity extends BaseActivity implements FormActivityContract.V
 	Application context;
 
 	@Inject
-	DataSource dataSource;
+	AbsDataSource dataSource;
 
 	@Inject
 	EmptyViewManager emptyViewManager;
@@ -49,8 +48,9 @@ public class FormActivity extends BaseActivity implements FormActivityContract.V
 
 		binding = FormActivityBinding.inflate(getLayoutInflater());
 		binding.setView(this);
-		setViewModel(new FormActivityViewModel(emptyViewManager));
+		setContentView(binding.getRoot());
 
+		setViewModel(new FormActivityViewModel(emptyViewManager));
 		long personId = getIntent().getLongExtra(KEY_ARG_PERSON_ID, -1);
 		if(personId != -1) {
 			getPersonDetails(personId);
@@ -89,28 +89,21 @@ public class FormActivity extends BaseActivity implements FormActivityContract.V
 	@Override
 	public void setViewModel(final FormActivityContract.ViewModel viewModel) {
 		this.viewModel = viewModel;
-		this.binding.setViewModel(viewModel);
+		if(this.binding != null) {
+			this.binding.setViewModel(viewModel);
+		}
 		this.viewModel.addOnPropertyChangedCallback(new Observable.OnPropertyChangedCallback() {
 			@Override
 			public void onPropertyChanged(Observable observable, int i) {
-				switch (i) {
-					case BR.currentStep:
-						if(viewModel.getCurrentStep() == FormActivityContract.ViewModel.STEP_FORM_SUBMISSION) {
-							savePerson();
-						}
-						break;
-				}
+
 			}
 		});
 	}
 
 	@Override
-	public void onNextClicked() {
-		if(viewModel.getCurrentStep() == FormActivityContract.ViewModel.STEP_FORM_SUBMISSION) {
+	public void onSubmitClicked() {
+		if(viewModel.isFormValid()) {
 			savePerson();
-		}
-		else {
-			viewModel.testAndMoveToNextStep();
 		}
 	}
 
@@ -124,6 +117,7 @@ public class FormActivity extends BaseActivity implements FormActivityContract.V
 
 					@Override
 					public void onNext(Long aLong) {
+						Toast.makeText(context, "Successfully Saved", Toast.LENGTH_LONG).show();
 						finish();
 					}
 

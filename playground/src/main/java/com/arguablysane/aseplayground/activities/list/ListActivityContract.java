@@ -33,5 +33,7 @@ public class ListActivityContract {
 
 	public interface View {
 		void onAddButtonClicked();
+
+		void setViewModel(ViewModel viewModel);
 	}
 }

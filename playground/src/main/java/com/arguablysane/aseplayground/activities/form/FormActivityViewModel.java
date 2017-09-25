@@ -21,7 +21,7 @@ public class FormActivityViewModel extends FormActivityContract.ViewModel {
 
 	@Override
 	public boolean isDataEmpty() {
-		return false;
+		return personModel == null;
 	}
 
 	@Override
@@ -32,6 +32,7 @@ public class FormActivityViewModel extends FormActivityContract.ViewModel {
 	@Override
 	public void setPerson(PersonModel person) {
 		this.personModel = person;
+		notifyChange();
 	}
 
 	@Override
@@ -40,82 +41,20 @@ public class FormActivityViewModel extends FormActivityContract.ViewModel {
 	}
 
 	@Override
-	public int getCurrentStep() {
-		return currentStep;
-	}
-
-	@Override
-	public void setStep(int state) {
-		this.currentStep = state;
-		notifyPropertyChanged(BR.currentStep);
-	}
-
-	@Override
-	public void setStepNameEntry() {
-		setStep(STEP_NAME_ENTRY);
-		notifyPropertyChanged(BR.nameLayoutVisible);
-	}
-
-	@Override
-	public void setStepAgeEntry() {
-		setStep(STEP_AGE_ENTRY);
-		notifyPropertyChanged(BR.ageLayoutVisible);
-	}
-
-	@Override
-	public void setStepLocationEntry() {
-		setStep(STEP_LOCATION_ENTRY);
-		notifyPropertyChanged(BR.locationLayoutVisible);
-	}
-
-	@Override
-	public void setStepFormSubmission() {
-		setStep(STEP_FORM_SUBMISSION);
-	}
-
-	@Override
-	public void testAndMoveToNextStep() {
-		switch (currentStep) {
-			case STEP_NAME_ENTRY:
-				if(isNameValid()) {
-					setStepAgeEntry();
-				}
-				break;
-
-			case STEP_AGE_ENTRY:
-				if(isAgeValid()) {
-					setStepLocationEntry();
-				}
-				break;
-
-			case STEP_LOCATION_ENTRY:
-				if(isLocationValid()) {
-					setStepFormSubmission();
-				}
-				break;
-		}
-	}
-
-	@Override
-	public boolean isNameLayoutVisible() {
-		return currentStep >= STEP_NAME_ENTRY;
-	}
-
-	@Override
 	public CharSequence getName() {
-		return personModel.getName();
+		return personModel != null ? personModel.getName() : null;
 	}
 
 	@Override
 	public void setName(CharSequence name) {
 		this.personModel.setName(name.toString());
+		setNameError(null);
 	}
 
 	@Override
 	public boolean isNameValid() {
 		msgNameError = null;
 		if(personModel.getName() != null && personModel.getName().length() > 0) {
-			setStepAgeEntry();
 			return true;
 		}
 		else {
@@ -136,19 +75,15 @@ public class FormActivityViewModel extends FormActivityContract.ViewModel {
 	}
 
 	@Override
-	public boolean isAgeLayoutVisible() {
-		return currentStep >= STEP_AGE_ENTRY;
-	}
-
-	@Override
 	public CharSequence getAge() {
-		return personModel.getAge() == 0 ? null : String.valueOf(personModel.getAge());
+		return personModel == null || personModel.getAge() == 0 ? null : String.valueOf(personModel.getAge());
 	}
 
 	@Override
 	public void setAge(CharSequence age) {
 		try {
 			personModel.setAge(Integer.parseInt(age.toString()));
+			setAgeError(null);
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -180,23 +115,19 @@ public class FormActivityViewModel extends FormActivityContract.ViewModel {
 	}
 
 	@Override
-	public boolean isLocationLayoutVisible() {
-		return currentStep >= STEP_LOCATION_ENTRY;
-	}
-
-	@Override
 	public CharSequence getLocation() {
-		return personModel.getLocation();
+		return personModel != null ? personModel.getLocation() : null;
 	}
 
 	@Override
 	public void setLocation(CharSequence location) {
 		personModel.setLocation(location.toString());
+		setLocationError(null);
 	}
 
 	@Override
 	public boolean isLocationValid() {
-		if(personModel.getLocation() != null || personModel.getLocation().length() < 3) {
+		if(personModel.getLocation() == null || personModel.getLocation().length() < 3) {
 			setLocationError("Where in Carmen Sandiego are you!!?!");
 			return false;
 		}
@@ -212,6 +143,11 @@ public class FormActivityViewModel extends FormActivityContract.ViewModel {
 	public void setLocationError(CharSequence error) {
 		this.msgLocationError = error;
 		notifyPropertyChanged(BR.locationError);
+	}
+
+	@Override
+	public boolean isFormValid() {
+		return isNameValid() && isAgeValid() && isLocationValid();
 	}
 
 

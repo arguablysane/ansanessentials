@@ -32,27 +32,7 @@ public class FormActivityContract {
 		public abstract PersonModel getPerson();
 		//endregion
 
-		//region Steps
-		@Bindable
-		public abstract int getCurrentStep();
-
-		public abstract void setStep(int state);
-
-		public abstract void setStepNameEntry();
-
-		public abstract void setStepAgeEntry();
-
-		public abstract void setStepLocationEntry();
-
-		public abstract void setStepFormSubmission();
-
-		public abstract void testAndMoveToNextStep();
-		//endregion
-
 		//region Name
-		@Bindable
-		public abstract boolean isNameLayoutVisible();
-		
 		@Bindable
 		public abstract CharSequence getName();
 		
@@ -68,9 +48,6 @@ public class FormActivityContract {
 		
 		//region Age
 		@Bindable
-		public abstract boolean isAgeLayoutVisible();
-
-		@Bindable
 		public abstract CharSequence getAge();
 
 		public abstract void setAge(CharSequence name);
@@ -85,9 +62,6 @@ public class FormActivityContract {
 
 		//region Location
 		@Bindable
-		public abstract boolean isLocationLayoutVisible();
-
-		@Bindable
 		public abstract CharSequence getLocation();
 
 		public abstract void setLocation(CharSequence name);
@@ -99,6 +73,8 @@ public class FormActivityContract {
 
 		public abstract void setLocationError(CharSequence error);
 		//endregion
+
+		public abstract boolean isFormValid();
 		
 	}
 
@@ -106,6 +82,6 @@ public class FormActivityContract {
 
 		void setViewModel(ViewModel viewModel);
 
-		void onNextClicked();
+		void onSubmitClicked();
 	}
 }

@@ -1,6 +1,6 @@
 package com.arguablysane.aseplayground.injection.modules;
 
-import com.arguablysane.aseplayground.data.sources.abs.DataSource;
+import com.arguablysane.aseplayground.data.sources.abs.AbsDataSource;
 
 import javax.inject.Singleton;
 
@@ -13,15 +13,15 @@ import dagger.Provides;
 @Module
 public class DataSourceModule {
 
-	private DataSource dataSource;
+	private AbsDataSource dataSource;
 
-	public DataSourceModule(DataSource dataSource) {
+	public DataSourceModule(AbsDataSource dataSource) {
 		this.dataSource = dataSource;
 	}
 
 	@Singleton
 	@Provides
-	public DataSource providesDataSource() {
+	public AbsDataSource providesDataSource() {
 		return dataSource;
 	}
 }

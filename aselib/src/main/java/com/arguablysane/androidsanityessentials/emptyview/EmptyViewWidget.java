@@ -94,8 +94,12 @@ public class EmptyViewWidget extends FrameLayout {
         }
 
         if(iconRes != EmptyViewState.NULL_INT) {
+            this.imgIcon.setVisibility(View.VISIBLE);
 			this.imgIcon.setImageResource(iconRes);
 		}
+		else {
+            this.imgIcon.setVisibility(View.GONE);
+        }
 
         if(tintColor != EmptyViewState.NULL_INT) {
 			this.imgIcon.setColorFilter(tintColor);

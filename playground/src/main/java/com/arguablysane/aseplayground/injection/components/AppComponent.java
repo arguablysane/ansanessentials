@@ -1,7 +1,8 @@
 package com.arguablysane.aseplayground.injection.components;
 
 import com.arguablysane.aseplayground.activities.form.FormActivity;
-import com.arguablysane.aseplayground.data.sources.SharedPrefDataSource;
+import com.arguablysane.aseplayground.activities.list.ListActivity;
+import com.arguablysane.aseplayground.data.sources.InMemoryDataSource;
 import com.arguablysane.aseplayground.injection.modules.ApplicationModule;
 import com.arguablysane.aseplayground.injection.modules.DataSourceModule;
 import com.arguablysane.aseplayground.injection.modules.EmptyViewManagerModule;
@@ -19,5 +20,5 @@ import dagger.Component;
 public interface AppComponent {
 	void inject(FormActivity formActivity);
 
-	void inject(SharedPrefDataSource sharedPrefDataSource);
+	void inject(ListActivity listActivity);
 }

@@ -26,7 +26,7 @@ android {
     }
 }
 
-def libversion_android_support = '26.0.2'
+def libversion_android_support = '26.1.0'
 def libversion_contstraint_layout = '1.0.2'
 def libversion_okhttp = '3.8.0'
 def libversion_retrofit = '2.3.0'
@@ -34,9 +34,10 @@ def libversion_eventbus = '3.0.0'
 def libversion_rxjava = '2.1.1'
 def libversion_rxandroid = '2.0.1'
 def libversion_picasso = '2.5.2'
+def libversion_dagger = '2.11'
 def libversion_javax_annotations = '1.0'
 def libversion_rxpermissions = '0.9.4@aar'
-def libversion_dagger = 2.11
+
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
@@ -60,10 +61,11 @@ dependencies {
     api 'io.reactivex.rxjava2:rxjava:' + libversion_rxjava
     api 'com.tbruyelle.rxpermissions2:rxpermissions:' + libversion_rxpermissions
 
+    api 'com.squareup.picasso:picasso:' + libversion_picasso
+
     api "com.google.dagger:dagger:$libversion_dagger"
     api "com.google.dagger:dagger-android-support:$libversion_dagger"
+    //This needs to be copied into the app gradle file
     annotationProcessor "com.google.dagger:dagger-android-processor:$libversion_dagger"
     annotationProcessor "com.google.dagger:dagger-compiler:$libversion_dagger"
-
-    api 'com.squareup.picasso:picasso:' + libversion_picasso
 }
